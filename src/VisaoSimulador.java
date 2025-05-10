@@ -62,9 +62,9 @@ public class VisaoSimulador extends JFrame
         alterarFonte();
 
         JPanel painelSuperior = new JPanel();
-        painelSuperior.add(botaoSimulacaoLonga);
-        painelSuperior.add(botaoSimular);
         painelSuperior.add(botaoSimularUmPasso);
+        painelSuperior.add(botaoSimular);
+        painelSuperior.add(botaoSimulacaoLonga);
 
         JPanel painelCentral = new JPanel(new BorderLayout());
         painelCentral.add(rotuloPasso, BorderLayout.NORTH);
