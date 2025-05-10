@@ -61,7 +61,7 @@ public class Simulador
         campo = new Campo(comprimento, largura);
 
         // Cria uma visão do estado de cada localização no campo.
-        visao = new VisaoSimulador(comprimento, largura);
+        visao = new VisaoSimulador(comprimento, largura, this);
         visao.definirCor(Coelho.class, Color.ORANGE);
         visao.definirCor(Raposa.class, Color.BLUE);
         
@@ -75,7 +75,7 @@ public class Simulador
      */
     public void executarSimulacaoLonga()
     {
-        simular(4000);
+        simular(4000, 0);
     }
     
     /**
@@ -83,12 +83,15 @@ public class Simulador
      * Para antes do número fornecido de passos se deixar de ser viável.
      * @param numPassos O número de passos a executar.
      */
-    public void simular(int numPassos)
+    public void simular(int numPassos, int atraso)
     {
         for(int passo = 1; passo <= numPassos && visao.ehViavel(campo); passo++) {
             simularUmPasso();
-            // delay(60);   // descomente isso para executar mais lentamente
+            if (atraso > 0) {
+                pausar(atraso);   // descomente isso para executar mais lentamente
+            }
         }
+        visao.reabilitarOpcoes();
     }
     
     /**

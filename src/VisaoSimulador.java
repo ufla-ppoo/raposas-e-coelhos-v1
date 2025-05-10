@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,8 +26,13 @@ public class VisaoSimulador extends JFrame
 
     private final String PREFIXO_PASSO = "Passo: ";
     private final String PREFIXO_POPULACAO = "População: ";
+
+    private Simulador simulador;
     private JLabel rotuloPasso, populacao;
     private VisaoCampo visaoCampo;
+    private JButton botaoSimulacaoLonga;
+    private JButton botaoSimular;
+    private JButton botaoSimularUmPasso;
     
     // Um mapa para armazenar cores para participantes na simulação.
     private Map<Class<?>, Color> cores;
@@ -36,8 +44,9 @@ public class VisaoSimulador extends JFrame
      * @param altura A altura da simulação.
      * @param largura A largura da simulação.
      */
-    public VisaoSimulador(int altura, int largura)
+    public VisaoSimulador(int altura, int largura, Simulador simulador)
     {
+        this.simulador = simulador;
         estatisticas = new EstatisticasCampo();
         cores = new LinkedHashMap<>();
 
@@ -47,14 +56,79 @@ public class VisaoSimulador extends JFrame
         
         setLocation(100, 50);
         
-        visaoCampo = new VisaoCampo(altura, largura);
+        configurarBotoes();
+
+        // aumenta o tamanho da fonte dos rótulos
+        alterarFonte();
+
+        JPanel painelSuperior = new JPanel();
+        painelSuperior.add(botaoSimulacaoLonga);
+        painelSuperior.add(botaoSimular);
+        painelSuperior.add(botaoSimularUmPasso);
+
+        JPanel painelCentral = new JPanel(new BorderLayout());
+        painelCentral.add(rotuloPasso, BorderLayout.NORTH);
+        painelCentral.add(visaoCampo = new VisaoCampo(altura, largura), BorderLayout.CENTER);
 
         Container conteudo = getContentPane();
-        conteudo.add(rotuloPasso, BorderLayout.NORTH);
-        conteudo.add(visaoCampo, BorderLayout.CENTER);
+        conteudo.add(painelSuperior, BorderLayout.NORTH);
+        conteudo.add(painelCentral, BorderLayout.CENTER);
         conteudo.add(populacao, BorderLayout.SOUTH);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
+    }
+
+    /**
+     * Aumenta o tamanho da fonte dos rótulos e botões
+     */
+    private void alterarFonte() {
+        rotuloPasso.setFont(rotuloPasso.getFont().deriveFont(24f));
+        populacao.setFont(populacao.getFont().deriveFont(24f));
+        botaoSimulacaoLonga.setFont(botaoSimulacaoLonga.getFont().deriveFont(16f));
+        botaoSimular.setFont(botaoSimular.getFont().deriveFont(16f));
+        botaoSimularUmPasso.setFont(botaoSimularUmPasso.getFont().deriveFont(16f));
+    }
+
+    /**
+     * Configura os botões que controlam a simulação.
+     * @param simulador O simulador associado a esta visão.
+     */
+    private void configurarBotoes() {
+        botaoSimulacaoLonga = new JButton("Simulação Longa");
+        botaoSimulacaoLonga.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                desabilitarOpcoes();
+                // Executa a simulação longa em uma nova thread
+                // para não bloquear a interface do usuário.
+                new Thread(() -> simulador.executarSimulacaoLonga()).start();
+            }
+        });
+        botaoSimular = new JButton("Simular Vários Passos");
+        botaoSimular.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String resposta = JOptionPane.showInputDialog("Quantos passos deseja simular?");
+                if (resposta != null) {
+                    int numeroDePassos = Integer.parseInt(resposta);
+                    if (numeroDePassos > 0) {
+                        desabilitarOpcoes();
+                        // Executa a simulação em uma nova thread
+                        // para não bloquear a interface do usuário.
+                        new Thread(() -> simulador.simular(numeroDePassos, 60)).start();
+                    }
+                }
+            }
+        });
+        botaoSimularUmPasso = new JButton("Simular Um Passo");
+        botaoSimularUmPasso.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                desabilitarOpcoes();
+                // Executa a simulação em uma nova thread
+                // para não bloquear a interface do usuário.
+                new Thread(() -> simulador.simular(1, 0)).start();
+            }
+        });
     }
     
     /**
@@ -123,6 +197,24 @@ public class VisaoSimulador extends JFrame
     public boolean ehViavel(Campo campo)
     {
         return estatisticas.ehViavel(campo);
+    }
+
+    /** 
+     * Reabilita os botões de simulação 
+      */
+    public void reabilitarOpcoes() {
+        botaoSimulacaoLonga.setEnabled(true);
+        botaoSimular.setEnabled(true);
+        botaoSimularUmPasso.setEnabled(true);
+    }
+
+    /** 
+     * Desabilita os botões de simulação 
+     */
+    public void desabilitarOpcoes() {
+        botaoSimulacaoLonga.setEnabled(false);
+        botaoSimular.setEnabled(false);
+        botaoSimularUmPasso.setEnabled(false);
     }
     
     /**
