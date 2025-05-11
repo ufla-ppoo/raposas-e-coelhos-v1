@@ -22,6 +22,7 @@ Como começar:
 - Inicie a aplicação.  
 - Em seguida, use uma das seguintes opções:  
   - simular um passo.
-  - simular - e forneça um número (por exemplo, 10) para simular essa quantidade de passos.  
-  - rodar simulação longa - para uma simulação de 4000 passos. 
+  - simular vários passos - e forneça um número (por exemplo, 10) para simular essa quantidade de passos.  
+  - simulação longa - para uma simulação de 4000 passos. 
 
+Os slides da aula que usam este projeto se encontram em: https://ufla-ipoo.github.io/ipoo-slides/cap10-1.html
