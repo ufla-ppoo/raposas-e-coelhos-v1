@@ -78,7 +78,7 @@ public class Raposa
         if(viva) {
             reproduzir(novosFoxes);            
             // Move-se em direção a uma fonte de comida, se encontrada.
-            Localizacao novaLocalizacao = encontrarComida();
+            Localizacao novaLocalizacao = buscarComida();
             if(novaLocalizacao == null) { 
                 // Nenhuma comida encontrada - tenta se mover para uma localização livre.
                 novaLocalizacao = campo.localizacaoVizinhaLivre(localizacao);
@@ -152,7 +152,7 @@ public class Raposa
      * Apenas o primeiro coelho vivo é comido.
      * @return Onde a comida foi encontrada, ou null se não foi.
      */
-    private Localizacao encontrarComida()
+    private Localizacao buscarComida()
     {
         List<Localizacao> vizinhas = campo.localizacoesVizinhas(localizacao);
         Iterator<Localizacao> it = vizinhas.iterator();

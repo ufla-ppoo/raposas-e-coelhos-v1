@@ -143,6 +143,7 @@ public class Simulador
         
         // Mostra o estado inicial na visão.
         visao.mostrarStatus(passo, campo);
+        visao.reabilitarOpcoes();
     }
     
     /**

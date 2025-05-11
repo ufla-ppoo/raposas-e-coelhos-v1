@@ -33,6 +33,8 @@ public class VisaoSimulador extends JFrame
     private JButton botaoSimulacaoLonga;
     private JButton botaoSimular;
     private JButton botaoSimularUmPasso;
+    private JButton botaoReiniciarSimulacao;
+    private JButton botaoReiniciarRandomizador;
     
     // Um mapa para armazenar cores para participantes na simulação.
     private Map<Class<?>, Color> cores;
@@ -65,6 +67,8 @@ public class VisaoSimulador extends JFrame
         painelSuperior.add(botaoSimularUmPasso);
         painelSuperior.add(botaoSimular);
         painelSuperior.add(botaoSimulacaoLonga);
+        painelSuperior.add(botaoReiniciarSimulacao);
+        painelSuperior.add(botaoReiniciarRandomizador);
 
         JPanel painelCentral = new JPanel(new BorderLayout());
         painelCentral.add(rotuloPasso, BorderLayout.NORTH);
@@ -86,9 +90,11 @@ public class VisaoSimulador extends JFrame
     private void alterarFonte() {
         rotuloPasso.setFont(rotuloPasso.getFont().deriveFont(24f));
         populacao.setFont(populacao.getFont().deriveFont(24f));
-        botaoSimulacaoLonga.setFont(botaoSimulacaoLonga.getFont().deriveFont(16f));
-        botaoSimular.setFont(botaoSimular.getFont().deriveFont(16f));
-        botaoSimularUmPasso.setFont(botaoSimularUmPasso.getFont().deriveFont(16f));
+        botaoSimulacaoLonga.setFont(botaoSimulacaoLonga.getFont().deriveFont(14f));
+        botaoSimular.setFont(botaoSimular.getFont().deriveFont(14f));
+        botaoSimularUmPasso.setFont(botaoSimularUmPasso.getFont().deriveFont(14f));
+        botaoReiniciarSimulacao.setFont(botaoReiniciarSimulacao.getFont().deriveFont(14f));
+        botaoReiniciarRandomizador.setFont(botaoReiniciarRandomizador.getFont().deriveFont(14f));
     }
 
     /**
@@ -105,6 +111,7 @@ public class VisaoSimulador extends JFrame
                 new Thread(() -> simulador.executarSimulacaoLonga()).start();
             }
         });
+
         botaoSimular = new JButton("Simular Vários Passos");
         botaoSimular.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -120,6 +127,7 @@ public class VisaoSimulador extends JFrame
                 }
             }
         });
+
         botaoSimularUmPasso = new JButton("Simular Um Passo");
         botaoSimularUmPasso.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -127,6 +135,23 @@ public class VisaoSimulador extends JFrame
                 // Executa a simulação em uma nova thread
                 // para não bloquear a interface do usuário.
                 new Thread(() -> simulador.simular(1, 0)).start();
+            }
+        });
+
+        botaoReiniciarSimulacao = new JButton("Reiniciar Simulação");
+        botaoReiniciarSimulacao.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                desabilitarOpcoes();
+                simulador.reiniciar();
+            }
+        });
+
+        botaoReiniciarRandomizador = new JButton("Reiniciar Randomizador");
+        botaoReiniciarRandomizador.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                desabilitarOpcoes();
+                Randomizador.resetar();
+                simulador.reiniciar();
             }
         });
     }
@@ -206,6 +231,8 @@ public class VisaoSimulador extends JFrame
         botaoSimulacaoLonga.setEnabled(true);
         botaoSimular.setEnabled(true);
         botaoSimularUmPasso.setEnabled(true);
+        botaoReiniciarSimulacao.setEnabled(true);
+        botaoReiniciarRandomizador.setEnabled(true);
     }
 
     /** 
@@ -215,6 +242,8 @@ public class VisaoSimulador extends JFrame
         botaoSimulacaoLonga.setEnabled(false);
         botaoSimular.setEnabled(false);
         botaoSimularUmPasso.setEnabled(false);
+        botaoReiniciarSimulacao.setEnabled(false);
+        botaoReiniciarRandomizador.setEnabled(false);
     }
     
     /**
