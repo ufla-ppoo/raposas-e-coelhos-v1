@@ -10,7 +10,7 @@ import java.awt.Color;
  * 
  * @author David J. Barnes e Michael Kölling
  *  Traduzido por Julio César Alves
- * @version 2025.05.08
+ * @version 2025.05.24
  */
 public class Simulador
 {
@@ -51,7 +51,7 @@ public class Simulador
     {
         if(largura <= 0 || comprimento <= 0) {
             System.out.println("As dimensões devem ser >= zero.");
-            System.out.println("Usando valores padrão.");
+            System.out.println("Usando valores padrões.");
             comprimento = COMPRIMENTO_PADRAO;
             largura = LARGURA_PADRAO;
         }
@@ -75,12 +75,13 @@ public class Simulador
      */
     public void executarSimulacaoLonga()
     {
+        // altere o parâmetro de atraso se quiser executar mais lentamente
         simular(4000, 0);
     }
     
     /**
      * Executa a simulação pelo número fornecido de passos.
-     * Para antes do número fornecido de passos se deixar de ser viável.
+     * Para a simulação antes do número fornecido de passos se ela se tornar inviável.
      * @param numPassos O número de passos a executar.
      */
     public void simular(int numPassos, int atraso)
@@ -88,15 +89,15 @@ public class Simulador
         for(int passo = 1; passo <= numPassos && visao.ehViavel(campo); passo++) {
             simularUmPasso();
             if (atraso > 0) {
-                pausar(atraso);   // descomente isso para executar mais lentamente
+                pausar(atraso);   
             }
         }
         visao.reabilitarOpcoes();
     }
     
     /**
-     * Executa a simulação a partir de seu estado atual por um único passo. Itera
-     * por todo o campo atualizando o estado de cada raposa e coelho.
+     * Executa a simulação a partir de seu estado atual por um único passo. 
+     * Itera por todo o campo atualizando o estado de cada raposa e coelho.
      */
     public void simularUmPasso()
     {

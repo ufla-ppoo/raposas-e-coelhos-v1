@@ -8,11 +8,11 @@ import java.util.Random;
  * 
  * @author David J. Barnes e Michael Kölling
  *  Traduzido por Julio César Alves
- * @version 2025.05.08
+ * @version 2025.05.24
  */
 public class Raposa
 {
-    // Características compartilhadas por todas as raposas (variáveis de classe).
+    // Características compartilhadas por todas as raposas (atributos estáticos, da classe).
     
     // A idade em que uma raposa pode começar a procriar.
     private static final int IDADE_REPRODUCAO = 15;
@@ -28,7 +28,7 @@ public class Raposa
     // Um gerador de números aleatórios compartilhado para controlar a reprodução.
     private static final Random rand = Randomizador.getRandom();
     
-    // Características individuais (campos de instância).
+    // Características individuais (atributos comuns, de instância).
 
     // A idade da raposa.
     private int idade;
@@ -61,22 +61,22 @@ public class Raposa
         }
         else {
             // deixa a idade como 0
-            nivelComida = rand.nextInt(VALOR_COMIDA_COELHO);
+            nivelComida = VALOR_COMIDA_COELHO;
         }
     }
     
     /**
-     * Isto é o que a raposa faz na maior parte do tempo: ela caça
-     * coelhos. Durante o processo, ela pode se reproduzir, morrer de fome
+     * Isto é o que a raposa faz na maior parte do tempo: ela caça coelhos.
+     * Durante o processo, ela pode se reproduzir, morrer de fome
      * ou morrer de velhice.
-     * @param novosFoxes Uma lista para retornar as raposas recém-nascidas.
+     * @param novasRaposas Uma lista para retornar as raposas recém-nascidas.
      */
-    public void cacar(List<Raposa> novosFoxes)
+    public void cacar(List<Raposa> novasRaposas)
     {
         incrementarIdade();
         incrementarFome();
         if(viva) {
-            reproduzir(novosFoxes);            
+            reproduzir(novasRaposas);            
             // Move-se em direção a uma fonte de comida, se encontrada.
             Localizacao novaLocalizacao = buscarComida();
             if(novaLocalizacao == null) { 
@@ -173,19 +173,19 @@ public class Raposa
     
     /**
      * Verifica se esta raposa deve dar à luz neste passo.
-     * Novos nascimentos serão feitos em locais adjacentes livres.
+     * Novos nascimentos serão feitos em locais vizinhos livres.
      * @param novasRaposas Uma lista para retornar as raposas recém-nascidas.
      */
     private void reproduzir(List<Raposa> novasRaposas)
     {
-        // Novas raposas nascem em locais adjacentes.
-        // Obtém uma lista de locais adjacentes livres.
-        List<Localizacao> livres = campo.localizacoesVizinhasLivres(localizacao);
+        // Novas raposas nascem em locais vizinhos.
+        // Obtém uma lista de locais vizinhos livres.
+        List<Localizacao> locaisLivres = campo.localizacoesVizinhasLivres(localizacao);
         int nascimentos = procriar();
-        for(int n = 0; n < nascimentos && livres.size() > 0; n++) {
-            Localizacao loc = livres.remove(0);
-            Raposa jovem = new Raposa(false, campo, loc);
-            novasRaposas.add(jovem);
+        for(int n = 0; n < nascimentos && locaisLivres.size() > 0; n++) {
+            Localizacao local = locaisLivres.remove(0);
+            Raposa filhote = new Raposa(false, campo, local);
+            novasRaposas.add(filhote);
         }
     }
         

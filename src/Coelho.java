@@ -7,11 +7,11 @@ import java.util.Random;
  * 
  * @author David J. Barnes e Michael Kölling
  *  Traduzido por Julio César Alves
- * @version 2025.05.08
+ * @version 2025.05.24
  */
 public class Coelho
 {
-    // Características compartilhadas por todos os coelhos (variáveis de classe).
+    // Características compartilhadas por todos os coelhos (atributos estáticos, da classe).
 
     // A idade em que um coelho pode começar a se reproduzir.
     private static final int IDADE_REPRODUCAO = 5;
@@ -24,7 +24,7 @@ public class Coelho
     // Um gerador de números aleatórios compartilhado para controlar a reprodução.
     private static final Random rand = Randomizador.getRandom();
     
-    // Características individuais (campos de instância).
+    // Características individuais (atributos comuns, de instância).
     
     // A idade do coelho.
     private int idade;
@@ -36,7 +36,7 @@ public class Coelho
     private Campo campo;
 
     /**
-     * Criar um novo coelho. Um coelho pode ser criado com idade
+     * Cria um novo coelho. Um coelho pode ser criado com idade
      * zero (recém-nascido) ou com uma idade aleatória.
      * 
      * @param idadeAleatoria Se verdadeiro, o coelho terá uma idade aleatória.
@@ -55,8 +55,8 @@ public class Coelho
     }
     
     /**
-     * Isto é o que o coelho faz na maior parte do tempo - ele corre
-     * por aí. Às vezes, ele se reproduz ou morre de velhice.
+     * Isto é o que o coelho faz na maior parte do tempo: ele corre por aí.
+     * Às vezes, ele se reproduz ou morre de velhice.
      * @param novosCoelhos Uma lista para retornar os coelhos recém-nascidos.
      */
     public void correr(List<Coelho> novosCoelhos)
@@ -64,7 +64,7 @@ public class Coelho
         incrementarIdade();
         if(vivo) {
             reproduzir(novosCoelhos);            
-            // Tentar se mover para uma localização livre.
+            // Tenta se mover para uma localização livre.
             Localizacao novaLocalizacao = campo.localizacaoVizinhaLivre(localizacao);
             if(novaLocalizacao != null) {
                 definirLocalizacao(novaLocalizacao);
@@ -77,7 +77,7 @@ public class Coelho
     }
     
     /**
-     * Verificar se o coelho está vivo ou não.
+     * Verifica se o coelho está vivo ou não.
      * @return verdadeiro se o coelho ainda estiver vivo.
      */
     public boolean estaVivo()
@@ -142,18 +142,18 @@ public class Coelho
     {
         // Novos coelhos nascem em locais vizinhos.
         // Obter uma lista de locais vizinhos livres.
-        List<Localizacao> livres = campo.localizacoesVizinhasLivres(localizacao);
+        List<Localizacao> locaisLivres = campo.localizacoesVizinhasLivres(localizacao);
         int nascimentos = procriar();
-        for(int b = 0; b < nascimentos && livres.size() > 0; b++) {
-            Localizacao loc = livres.remove(0);
-            Coelho jovem = new Coelho(false, campo, loc);
-            novosCoelhos.add(jovem);
+        for(int b = 0; b < nascimentos && locaisLivres.size() > 0; b++) {
+            Localizacao loc = locaisLivres.remove(0);
+            Coelho filhote = new Coelho(false, campo, loc);
+            novosCoelhos.add(filhote);
         }
     }
         
     /**
      * Gera um número representando o número de nascimentos,
-     * se puder se procriar.
+     * se puder procriar.
      * @return O número de nascimentos (pode ser zero).
      */
     private int procriar()

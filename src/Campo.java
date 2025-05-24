@@ -9,7 +9,7 @@ import java.util.Random;
  * 
  * @author David J. Barnes e Michael Kölling
  *  Traduzido por Julio César Alves
- * @version 2025.05.08
+ * @version 2025.05.24
  */
 public class Campo
 {
@@ -78,7 +78,7 @@ public class Campo
     }
     
     /**
-     * Retorna o animal na localização fornecida, se houver.
+     * Retorna o animal da localização fornecida, se houver.
      * @param localizacao Onde no campo.
      * @return O animal na localização fornecida, ou null se não houver nenhum.
      */
@@ -113,15 +113,15 @@ public class Campo
     }
     
     /**
-     * Obtêm uma lista embaralhada das localizações vizinhas livres.
+     * Obtém uma lista embaralhada das localizações vizinhas livres.
      * @param localizacao Obter localizações vizinhas a esta.
      * @return Uma lista de localizações vizinhas livres.
      */
     public List<Localizacao> localizacoesVizinhasLivres(Localizacao localizacao)
     {
         List<Localizacao> livres = new LinkedList<>();
-        List<Localizacao> vizinhos = localizacoesVizinhas(localizacao);
-        for(Localizacao proxima : vizinhos) {
+        List<Localizacao> vizinhas = localizacoesVizinhas(localizacao);
+        for(Localizacao proxima : vizinhas) {
             if(getObjetoEm(proxima) == null) {
                 livres.add(proxima);
             }

@@ -2,12 +2,12 @@ import java.util.HashMap;
 
 /**
  * Esta classe coleta e fornece alguns dados estatísticos sobre o estado 
- * de um campo. É flexível: cria e mantém um contador 
- * para qualquer classe de objeto encontrada no campo.
+ * de um campo. É flexível: cria e mantém um contador para qualquer classe 
+ * de objeto encontrada no campo.
  * 
  * @author David J. Barnes e Michael Kölling
  *  Traduzido por Julio César Alves
- * @version 2025.05.08
+ * @version 2025.05.24
  */
 public class EstatisticasCampo
 {
