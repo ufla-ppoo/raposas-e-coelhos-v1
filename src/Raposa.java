@@ -26,7 +26,7 @@ public class Raposa
     // número de passos que uma raposa pode dar antes de precisar comer novamente.
     private static final int VALOR_COMIDA_COELHO = 9;
     // Um gerador de números aleatórios compartilhado para controlar a reprodução.
-    private static final Random rand = Randomizador.getRandom();
+    private static final Random rand = Randomizador.obterRandom();
     
     // Características individuais (atributos comuns, de instância).
 
@@ -54,7 +54,7 @@ public class Raposa
         idade = 0;
         viva = true;
         this.campo = campo;
-        setLocalizacao(localizacao);
+        definirLocalizacao(localizacao);
         if(idadeAleatoria) {
             idade = rand.nextInt(IDADE_MAXIMA);
             nivelComida = rand.nextInt(VALOR_COMIDA_COELHO);
@@ -85,7 +85,7 @@ public class Raposa
             }
             // Verifica se foi possível se mover.
             if(novaLocalizacao != null) {
-                setLocalizacao(novaLocalizacao);
+                definirLocalizacao(novaLocalizacao);
             }
             else {
                 // Superlotação.
@@ -107,7 +107,7 @@ public class Raposa
      * Retorna a localização da raposa.
      * @return A localização da raposa.
      */
-    public Localizacao getLocalizacao()
+    public Localizacao obterLocalizacao()
     {
         return localizacao;
     }
@@ -116,7 +116,7 @@ public class Raposa
      * Coloca a raposa na nova localização no campo fornecido.
      * @param novaLocalizacao A nova localização da raposa.
      */
-    private void setLocalizacao(Localizacao novaLocalizacao)
+    private void definirLocalizacao(Localizacao novaLocalizacao)
     {
         if(localizacao != null) {
             campo.limpar(localizacao);
@@ -158,7 +158,7 @@ public class Raposa
         Iterator<Localizacao> it = vizinhas.iterator();
         while(it.hasNext()) {
             Localizacao onde = it.next();
-            Object animal = campo.getObjetoEm(onde);
+            Object animal = campo.obterObjetoEm(onde);
             if(animal instanceof Coelho) {
                 Coelho coelho = (Coelho) animal;
                 if(coelho.estaVivo()) { 

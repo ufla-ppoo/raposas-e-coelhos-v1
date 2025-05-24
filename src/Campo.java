@@ -14,7 +14,7 @@ import java.util.Random;
 public class Campo
 {
     // Um gerador de números aleatórios para fornecer localizações aleatórias.
-    private static final Random rand = Randomizador.getRandom();
+    private static final Random rand = Randomizador.obterRandom();
     
     // O comprimento e a largura do campo.
     private int comprimento, largura;
@@ -51,7 +51,7 @@ public class Campo
      */
     public void limpar(Localizacao localizacao)
     {
-        campo[localizacao.getLinha()][localizacao.getColuna()] = null;
+        campo[localizacao.obterLinha()][localizacao.obterColuna()] = null;
     }
     
     /**
@@ -74,7 +74,7 @@ public class Campo
      */
     public void colocar(Object animal, Localizacao localizacao)
     {
-        campo[localizacao.getLinha()][localizacao.getColuna()] = animal;
+        campo[localizacao.obterLinha()][localizacao.obterColuna()] = animal;
     }
     
     /**
@@ -82,9 +82,9 @@ public class Campo
      * @param localizacao Onde no campo.
      * @return O animal na localização fornecida, ou null se não houver nenhum.
      */
-    public Object getObjetoEm(Localizacao localizacao)
+    public Object obterObjetoEm(Localizacao localizacao)
     {
-        return getObjetoEm(localizacao.getLinha(), localizacao.getColuna());
+        return obterObjetoEm(localizacao.obterLinha(), localizacao.obterColuna());
     }
     
     /**
@@ -93,7 +93,7 @@ public class Campo
      * @param coluna A coluna desejada.
      * @return O animal na localização fornecida, ou null se não houver nenhum.
      */
-    public Object getObjetoEm(int linha, int coluna)
+    public Object obterObjetoEm(int linha, int coluna)
     {
         return campo[linha][coluna];
     }
@@ -122,7 +122,7 @@ public class Campo
         List<Localizacao> livres = new LinkedList<>();
         List<Localizacao> vizinhas = localizacoesVizinhas(localizacao);
         for(Localizacao proxima : vizinhas) {
-            if(getObjetoEm(proxima) == null) {
+            if(obterObjetoEm(proxima) == null) {
                 livres.add(proxima);
             }
         }
@@ -162,8 +162,8 @@ public class Campo
         // A lista de localizações a ser retornada.
         List<Localizacao> localizacoes = new LinkedList<>();
         if(localizacao != null) {
-            int linha = localizacao.getLinha();
-            int coluna = localizacao.getColuna();
+            int linha = localizacao.obterLinha();
+            int coluna = localizacao.obterColuna();
             for(int deslocLinha = -1; deslocLinha <= 1; deslocLinha++) {
                 int proxLinha = linha + deslocLinha;
                 if(proxLinha >= 0 && proxLinha < comprimento) {
@@ -188,7 +188,7 @@ public class Campo
      * Retorna o comprimento do campo.
      * @return O comprimento do campo.
      */
-    public int getComprimento()
+    public int obterComprimento()
     {
         return comprimento;
     }
@@ -197,7 +197,7 @@ public class Campo
      * Retorna a largura do campo.
      * @return A largura do campo.
      */
-    public int getLargura()
+    public int obterLargura()
     {
         return largura;
     }

@@ -29,7 +29,7 @@ public class Localizacao
     {
         if(obj instanceof Localizacao) {
             Localizacao outra = (Localizacao) obj;
-            return linha == outra.getLinha() && coluna == outra.getColuna();
+            return linha == outra.obterLinha() && coluna == outra.obterColuna();
         }
         else {
             return false;
@@ -59,7 +59,7 @@ public class Localizacao
     /**
      * @return A linha.
      */
-    public int getLinha()
+    public int obterLinha()
     {
         return linha;
     }
@@ -67,7 +67,7 @@ public class Localizacao
     /**
      * @return A coluna.
      */
-    public int getColuna()
+    public int obterColuna()
     {
         return coluna;
     }

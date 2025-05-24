@@ -30,7 +30,7 @@ public class Randomizador
      * Fornece um gerador aleatório.
      * @return Um objeto Random.
      */
-    public static Random getRandom()
+    public static Random obterRandom()
     {
         if(usarCompartilhado) {
             return rand;

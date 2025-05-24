@@ -22,7 +22,7 @@ public class Coelho
     // O número máximo de filhotes que podem nascer de cada vez.
     private static final int TAMANHO_MAXIMO_NINHADA = 4;
     // Um gerador de números aleatórios compartilhado para controlar a reprodução.
-    private static final Random rand = Randomizador.getRandom();
+    private static final Random rand = Randomizador.obterRandom();
     
     // Características individuais (atributos comuns, de instância).
     
@@ -103,7 +103,7 @@ public class Coelho
      * Retorna a localização do coelho.
      * @return A localização do coelho.
      */
-    public Localizacao getLocalizacao()
+    public Localizacao obterLocalizacao()
     {
         return localizacao;
     }

@@ -31,7 +31,7 @@ public class EstatisticasCampo
      * Retorna detalhes sobre o que está no campo.
      * @return Uma string descrevendo o que está no campo.
      */
-    public String getDetalhesPopulacao(Campo campo)
+    public String obterDetalhesPopulacao(Campo campo)
     {
         StringBuffer buffer = new StringBuffer();
         if(!contagensValidas) {
@@ -39,9 +39,9 @@ public class EstatisticasCampo
         }
         for(Class<?> chave : contadores.keySet()) {
             Contador info = contadores.get(chave);
-            buffer.append(info.getNome());
+            buffer.append(info.obterNome());
             buffer.append(": ");
-            buffer.append(info.getContagem());
+            buffer.append(info.obterContagem());
             buffer.append(' ');
         }
         return buffer.toString();
@@ -51,12 +51,12 @@ public class EstatisticasCampo
      * Invalida o conjunto atual de estatísticas; redefine todas 
      * as contagens para zero.
      */
-    public void redefinir()
+    public void reiniciar()
     {
         contagensValidas = false;
         for(Class<?> chave : contadores.keySet()) {
             Contador contador = contadores.get(chave);
-            contador.redefinir();
+            contador.reiniciar();
         }
     }
 
@@ -98,7 +98,7 @@ public class EstatisticasCampo
         }
         for(Class<?> chave : contadores.keySet()) {
             Contador info = contadores.get(chave);
-            if(info.getContagem() > 0) {
+            if(info.obterContagem() > 0) {
                 naoZero++;
             }
         }
@@ -114,10 +114,10 @@ public class EstatisticasCampo
      */
     private void gerarContagens(Campo campo)
     {
-        redefinir();
-        for(int linha = 0; linha < campo.getComprimento(); linha++) {
-            for(int coluna = 0; coluna < campo.getLargura(); coluna++) {
-                Object animal = campo.getObjetoEm(linha, coluna);
+        reiniciar();
+        for(int linha = 0; linha < campo.obterComprimento(); linha++) {
+            for(int coluna = 0; coluna < campo.obterLargura(); coluna++) {
+                Object animal = campo.obterObjetoEm(linha, coluna);
                 if(animal != null) {
                     incrementarContagem(animal.getClass());
                 }

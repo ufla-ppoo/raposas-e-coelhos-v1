@@ -169,7 +169,7 @@ public class VisaoSimulador extends JFrame
     /**
      * @return A cor a ser usada para uma classe específica de animal.
      */
-    private Color getCor(Class<?> classeAnimal)
+    private Color obterCor(Class<?> classeAnimal)
     {
         Color cor = cores.get(classeAnimal);
         if(cor == null) {
@@ -193,16 +193,16 @@ public class VisaoSimulador extends JFrame
         }
             
         rotuloPasso.setText(PREFIXO_PASSO + passo);
-        estatisticas.redefinir();
+        estatisticas.reiniciar();
         
         visaoCampo.prepararPintura();
 
-        for(int linha = 0; linha < campo.getComprimento(); linha++) {
-            for(int coluna = 0; coluna < campo.getLargura(); coluna++) {
-                Object animal = campo.getObjetoEm(linha, coluna);
+        for(int linha = 0; linha < campo.obterComprimento(); linha++) {
+            for(int coluna = 0; coluna < campo.obterLargura(); coluna++) {
+                Object animal = campo.obterObjetoEm(linha, coluna);
                 if(animal != null) {
                     estatisticas.incrementarContagem(animal.getClass());
-                    visaoCampo.desenharMarca(coluna, linha, getCor(animal.getClass()));
+                    visaoCampo.desenharMarca(coluna, linha, obterCor(animal.getClass()));
                 }
                 else {
                     visaoCampo.desenharMarca(coluna, linha, COR_VAZIA);
@@ -211,7 +211,7 @@ public class VisaoSimulador extends JFrame
         }
         estatisticas.finalizarContagem();
 
-        populacao.setText(PREFIXO_POPULACAO + estatisticas.getDetalhesPopulacao(campo));
+        populacao.setText(PREFIXO_POPULACAO + estatisticas.obterDetalhesPopulacao(campo));
         visaoCampo.repaint();
     }
 

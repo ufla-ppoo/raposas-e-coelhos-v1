@@ -152,10 +152,10 @@ public class Simulador
      */
     private void povoar()
     {
-        Random rand = Randomizador.getRandom();
+        Random rand = Randomizador.obterRandom();
         campo.limpar();
-        for(int linha = 0; linha < campo.getComprimento(); linha++) {
-            for(int coluna = 0; coluna < campo.getLargura(); coluna++) {
+        for(int linha = 0; linha < campo.obterComprimento(); linha++) {
+            for(int coluna = 0; coluna < campo.obterLargura(); coluna++) {
                 if(rand.nextDouble() <= PROBABILIDADE_CRIACAO_RAPOSA) {
                     Localizacao localizacao = new Localizacao(linha, coluna);
                     Raposa raposa = new Raposa(true, campo, localizacao);

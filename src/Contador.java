@@ -27,7 +27,7 @@ public class Contador
     /**
      * @return A descrição curta deste tipo.
      */
-    public String getNome()
+    public String obterNome()
     {
         return nome;
     }
@@ -35,7 +35,7 @@ public class Contador
     /**
      * @return A contagem atual para este tipo.
      */
-    public int getContagem()
+    public int obterContagem()
     {
         return contagem;
     }
@@ -51,7 +51,7 @@ public class Contador
     /**
      * Redefine a contagem atual para zero.
      */
-    public void redefinir()
+    public void reiniciar()
     {
         contagem = 0;
     }
